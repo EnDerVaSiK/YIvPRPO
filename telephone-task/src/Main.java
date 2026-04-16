@@ -1,18 +1,32 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        // Путь к нашему файлу с номерами телефонов
+        // Путь к файлу с номерами телефонов
         String inputFilePath = "telephone-task/input.txt";
 
         try {
             // Читаем весь текст из файла в одну строку
             String text = new String(Files.readAllBytes(Paths.get(inputFilePath)));
-
             System.out.println("Исходный текст из файла:");
             System.out.println(text);
+
+            // Регулярное выражение для поиска российских номеров (учитывает пробелы, скобки и тире)
+            String regex = "(?:\\+7|8|7)?\\s*\\(?(\\d{3})\\)?\\s*[- ]?\\s*(\\d{3})\\s*[- ]?\\s*(\\d{2})\\s*[- ]?\\s*(\\d{2})";
+
+            // Компилируем выражение и создаем Matcher
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(text);
+
+            // Заменяем все найденные совпадения на новый формат: +1 (группа1) группа2+группа3+группа4
+            String resultText = matcher.replaceAll("+1 ($1) $2-$3-$4");
+
+            System.out.println("\nИсправленный текст:");
+            System.out.println(resultText);
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка при чтении файла: " + e.getMessage());
