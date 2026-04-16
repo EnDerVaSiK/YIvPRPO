@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) {
         // Путь к файлу с номерами телефонов
         String inputFilePath = "telephone-task/input.txt";
+        // Путь для файла с результатом
+        String outputFilePath = "telephone-task/output.txt";
 
         try {
             // Читаем весь текст из файла в одну строку
@@ -27,6 +29,10 @@ public class Main {
 
             System.out.println("\nИсправленный текст:");
             System.out.println(resultText);
+
+            // Сохраняем результат в новый файл
+            Files.write(Paths.get(outputFilePath), resultText.getBytes());
+            System.out.println("\nУспех! Результат сохранен в файл: " + outputFilePath);
 
         } catch (IOException e) {
             System.out.println("Произошла ошибка при чтении файла: " + e.getMessage());
