@@ -5,6 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+
+    // Выносим регулярное выражение в константу для оптимизации
+    private static final String REGEX = "(?:\\+7|8|7)?\\s*\\(?(\\d{3})\\)?\\s*[- ]?\\s*(\\d{3})\\s*[- ]?\\s*(\\d{2})\\s*[- ]?\\s*(\\d{2})";
+    private static final Pattern PHONE_PATTERN = Pattern.compile(REGEX);
+
     public static void main(String[] args) {
         // Путь к файлу с номерами телефонов
         String inputFilePath = "telephone-task/input.txt";
@@ -17,14 +22,7 @@ public class Main {
             System.out.println("Исходный текст из файла:");
             System.out.println(text);
 
-            // Регулярное выражение для поиска российских номеров (учитывает пробелы, скобки и тире)
-            String regex = "(?:\\+7|8|7)?\\s*\\(?(\\d{3})\\)?\\s*[- ]?\\s*(\\d{3})\\s*[- ]?\\s*(\\d{2})\\s*[- ]?\\s*(\\d{2})";
-
-            // Компилируем выражение и создаем Matcher
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(text);
-
-            // Заменяем все найденные совпадения на новый формат: +1 (группа1) группа2+группа3+группа4
+            Matcher matcher = PHONE_PATTERN.matcher(text);
             String resultText = matcher.replaceAll("+1 ($1) $2-$3-$4");
 
             System.out.println("\nИсправленный текст:");
