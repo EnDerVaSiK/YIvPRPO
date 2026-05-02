@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.regex.Matcher;
@@ -18,7 +19,7 @@ public class Main {
 
         try {
             // Читаем весь текст из файла в одну строку
-            String text = new String(Files.readAllBytes(Paths.get(inputFilePath)));
+            String text = new String(Files.readAllBytes(Paths.get(inputFilePath)), StandardCharsets.UTF_8);
             System.out.println("Исходный текст из файла:");
             System.out.println(text);
 
@@ -29,7 +30,7 @@ public class Main {
             System.out.println(resultText);
 
             // Сохраняем результат в новый файл
-            Files.write(Paths.get(outputFilePath), resultText.getBytes());
+            Files.write(Paths.get(outputFilePath), resultText.getBytes(StandardCharsets.UTF_8));
             System.out.println("\nУспех! Результат сохранен в файл: " + outputFilePath);
 
         } catch (IOException e) {
