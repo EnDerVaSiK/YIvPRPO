@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    // Выносим регулярное выражение в константу для оптимизации
-    private static final String REGEX = "(?:\\+7|8|7)?\\s*\\(?(\\d{3})\\)?\\s*[- ]?\\s*(\\d{3})\\s*[- ]?\\s*(\\d{2})\\s*[- ]?\\s*(\\d{2})";
+    // Выносим регулярное выражение (с посессивными квантификаторами (*+ и ?+) для защиты от ReDoS) в константу для оптимизации
+    private static final String REGEX = "(?:\\+7|8|7)?+[\\s\\-]*+\\(?+(\\d{3})\\)?+[\\s\\-]*+(\\d{3})[\\s\\-]*+(\\d{2})[\\s\\-]*+(\\d{2})";
     private static final Pattern PHONE_PATTERN = Pattern.compile(REGEX);
 
     public static void main(String[] args) {
