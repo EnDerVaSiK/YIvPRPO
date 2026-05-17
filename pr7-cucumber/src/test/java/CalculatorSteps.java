@@ -1,6 +1,7 @@
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import org.example.Calculator;
 import org.junit.Assert;
 
 public class CalculatorSteps {
